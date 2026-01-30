@@ -1,7 +1,7 @@
 from django.db import models
-
+from datetime import datetime
 # Create your models here.
-class task(models.Model):
+class Task(models.Model):
     title=models.CharField(max_length=200)
     description = models.TextField(blank=True)
     completed=models.BooleanField(default=False)
