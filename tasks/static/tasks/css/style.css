@@ -1,0 +1,31 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+.cabeçalho{
+    background-color: pink;
+    border: solid;
+    width: 75vw;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+   
+    
+}
+.title{
+    font-size: 28px;
+    font-weight: 900;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.menu_hamburger{
+    border: solid blue;
+    width: 40px;
+    height: 35px;
+    border-radius: 9px;
+}
