@@ -1,11 +1,11 @@
-{%load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/tasks/static/tasks/css/style.css">
+    <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}?v=2.0">
 </head>
 <body>
     <div class="container">
@@ -13,24 +13,21 @@
         <form method="post">
             {% csrf_token %}
             <input type="text" name="title" placeholder="New task" required>
-            <button type="submit"> adicionar</button>
-
+            <button type="submit">adicionar</button>
         </form>
 
         <ul>
-            {%if task in tasks%}
-                <li><span class="{% if task.completed %}completed{% end if %}">{{ task.title}}</span>
-                    {% if not task.completed %}
-                <a href="{% url 'task_complete' task.id %}">marca como concluida</a>
-                {% end if %}
-                <a href="{% url 'task_delete' task.id %}">Excluir</a>
-                
-                </li>
-                {% empty %}
+            {% for task in tasks %}
                 <li>
-                    nenhuma tarefa encontrada
+                    <span class="{% if task.completed %}completed{% endif %}">{{ task.title }}</span>
+                    {% if not task.completed %}
+                        <a href="{% url 'task_complete' task.id %}">marca como concluida</a>
+                    {% endif %}
+                    <a href="{% url 'task_delete' task.id %}">Excluir</a>
                 </li>
-            {%endfor%}
+            {% empty %}
+                <li>nenhuma tarefa encontrada</li>
+            {% endfor %}
         </ul>
         <!-- <div class="cabeçalho">
 

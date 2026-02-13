@@ -66,7 +66,7 @@ body{
 
  body{
     font-family:Arial, Helvetica, sans-serif ;
-    background-color: #F4F4F4;
+    background-color: #E3E9FF;
     padding: 40PX;
 
  }
@@ -76,6 +76,12 @@ body{
     max-width: 500px;
     margin: auto;
     border-radius:8px;
+ }
+ .container>h1{
+    font-family:'Times New Roman', Times, serif;
+    color: #FFF;
+    background-color:#F572F0 ;
+    height:20vh;
  }
  li{
     margin-bottom: 10px;
