@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<!--     <link rel="stylesheet" href="{% static 'tasks/css/style.css' %}?v=2.0"> -->
+    <link rel="stylesheet" href="/tasks/static/tasks/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div>
+          <h1>lista de tarefas</h1>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="New task" required>
+            <button type="submit">adicionar</button>
+        </form>
+
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <span class="{% if task.completed %}completed{% endif %}">{{ task.title }}</span>
+                    {% if not task.completed %}
+                        <a href="{% url 'task_complete' task.id %}">marca como concluida</a>
+                    {% endif %}
+                    <a href="{% url 'task_delete' task.id %}">Excluir</a>
+                </li>
+            {% empty %}
+                <li>nenhuma tarefa encontrada</li>
+            {% endfor %}
+        </ul>
+        <!-- <div class="cabeçalho">
+
+            <button class="menu_hamburger"><img src="/tasks/static/img/bars-solid-full.svg" alt=""></button>
+
+            <h1 class="title">Lista de tarefas</h1>
+            
+        </div>
+       
+        <div class="corpo">
+            <div class="tarefa-lista">
+                <input type="radio" name="resolvido">
+                <p>teste</p>
+                <button><img src="/tasks/static/img/trash-solid-full.svg"></button>
+            </div>
+            
+            <button>+ New task</button>
+        </div>
+
+        <form method="post">
+            {%csrf_token%}
+            <input>
+        </form> -->
+    </div>
+</body>
+</html>
