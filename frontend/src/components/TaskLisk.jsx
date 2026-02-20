@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useState } from "react";
 import { getTasks, createTask, deleteTask } from "../services/api";
-
-export default function TaskList() {
+import "./TaskList.css";
+export default function TaskList({ onLogout }) {
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState('');
 
     const loadTasks = useCallback(async () => {
+        try{
         const data = await getTasks();
-        setTasks(data.results ?? data);
-    }, []);
+        setTasks(Array.isArray(data) ? data : []);
+    }catch(error){
+         console.error("erro ao carregar as tarefas:", error);
+         setTasks([]);
+    }}, []);
 
     useEffect(() => {
         loadTasks();
@@ -16,9 +20,14 @@ export default function TaskList() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        await createTask({ title });
-        setTitle('');
-        loadTasks();
+        if (!title.trim()) return;
+        try {
+            await createTask({ title });
+            setTitle('');
+            await loadTasks();
+        } catch (error) {
+            console.error("erro ao criar tarefa:", error);
+        }
     }
 
     async function handleDelete(id) {
@@ -28,7 +37,13 @@ export default function TaskList() {
 
     return (
         <div>
-            <h1>Task List</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h1>Task List</h1>
+                <button onClick={() => {
+                    localStorage.removeItem('token');
+                    onLogout();
+                }}>Logout</button>
+            </div>
             <form onSubmit={handleSubmit}>
                 <input 
                     type="text" 
