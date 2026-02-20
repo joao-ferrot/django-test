@@ -7,7 +7,9 @@ export async function getTasks(){
 export async function createTask(task) {
     const response=await fetch(`${api_url}/tasks/`, {
         method:'POST',
-        headers:{},
+        headers:{
+            'Content-Type':'application/json',
+        },
         body:JSON.stringify(task),
     
 });
@@ -19,5 +21,5 @@ export async function deleteTask(id) {
     await fetch(`${api_url}/tasks/${id}/`, {
         method:'DELETE',
     });
-    return response.json();
+   
 }
